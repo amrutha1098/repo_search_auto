@@ -74,7 +74,6 @@ class BROWSER_HELPER:
         button_xpath = button_xpath + "and contains(@tabindex, '0')]"
 
         button_array = self.driver.find_elements(By.XPATH, value=button_xpath)
-        print(button_array)
         button = button_array[table_index]
         button.click()
 
@@ -83,4 +82,59 @@ class BROWSER_HELPER:
 
     """
     Code to fetch values from ui
+    """
+
+    def fetch_table_headers(self):
+        table_data = []
+        table_path = "//th[contains(@class, 'MuiTableCell-root MuiTableCell-head MuiTableCell-alignLeft MuiTableCell-sizeMedium css-gm1hpc-MuiTableCell-root')]"
+        table = self.driver.find_elements(By.XPATH, table_path)
+
+        cell = 0
+        while cell < len(table):
+            data = {}
+            for i in range(4):
+                data['name'] = table[cell].text
+                data['owner'] = table[cell + 1].text
+                data['stars'] = table[cell + 2].text
+                data['link'] = table[cell + 3].text
+                data['details'] = table[cell + 4].text
+            table_data.append(data)
+            cell += 5
+        print(table_data)
+        return table_data
+
+    def get_initial_text(self):
+        xpath = "//div[contains(@class, 'MuiGrid-root MuiGrid-container css-1ry2eeo-MuiGrid-root')]"
+        element = self.driver.find_element(By.XPATH, xpath)
+        # print(element.text)
+        return element.text
+
+    def fetch_name_from_table(self, table_index=0):
+        table_data = []
+
+        table_path = "//td[contains(@class, 'MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-xrc9mx-MuiTableCell-root')]"
+        table = self.driver.find_elements(By.XPATH, table_path)
+        # print(len(table))
+        cell = 0
+        while cell < len(table):
+            data = {}
+            for i in range(4):
+                data['name'] = table[cell].text
+                data['owner'] = table[cell + 1].text
+                data['stars'] = table[cell + 2].text
+                data['link'] = table[cell + 3].text
+                # data['extra'] = table[cell+4].text
+            cell += 5
+            table_data.append(data)
+        print(table_data)
+        return table_data
+
+    def fetch_page_details(self):
+        xpath = "//p[contains(@class, 'MuiTablePagination-displayedRows css-11ceysh-MuiTablePagination-displayedRows')]"
+        element = self.driver.find_element(By.XPATH, xpath)
+        # print(element.text)
+        return element.text
+
+    """
+    does page has certain elements
     """
