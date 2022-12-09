@@ -74,6 +74,7 @@ class BROWSER_HELPER:
         button_xpath = button_xpath + "and contains(@tabindex, '0')]"
 
         button_array = self.driver.find_elements(By.XPATH, value=button_xpath)
+        print(len(button_array))
         button = button_array[table_index]
         button.click()
 
@@ -88,7 +89,7 @@ class BROWSER_HELPER:
 
         time.sleep(5)
         # replace with wait for page to load .. 
-    
+
     def select_accept_tab(self):
         button_xpath = "//button[contains(@class,'MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButtonBase-root  css-1q7oytv-MuiButtonBase-root-MuiButton-root')]"
 
@@ -97,7 +98,6 @@ class BROWSER_HELPER:
 
         time.sleep(5)
         # replace with wait for page to load ..  
-
 
     """
     Code to fetch values from ui
@@ -122,7 +122,7 @@ class BROWSER_HELPER:
         print(table_data)
         return table_data
 
-    def get_initial_text(self):
+    def fetch_initial_text(self):
         xpath = "//div[contains(@class, 'MuiGrid-root MuiGrid-container css-1ry2eeo-MuiGrid-root')]"
         element = self.driver.find_element(By.XPATH, xpath)
         # print(element.text)
@@ -156,18 +156,18 @@ class BROWSER_HELPER:
 
     def fetch_repo_details(self, identifier):
         details_path = "//div[contains(@class, 'MuiGrid-root css-vj1n65-MuiGrid-root')]"
-        identity_path = "/following::*[(text()='" + str(identifier) +"')]/../following-sibling::p"
+        identity_path = "/following::*[(text()='" + str(identifier) + "')]/../following-sibling::p"
         xpath = details_path + identity_path
         # print(xpath)
         details = self.driver.find_element(By.XPATH, xpath)
         return details.text
 
     def fetch_commit_fork_details(self, value):
-        
+
         self.select_get_details(value)
-        
+
         data = {}
-        data["commit_details"] = self.fetch_repo_details(identifier = "Last 3 committers: ")
+        data["commit_details"] = self.fetch_repo_details(identifier="Last 3 committers: ")
         data["fork_details"] = self.fetch_repo_details(identifier="Recent Forked User: ")
         data["fork_bio_details"] = self.fetch_repo_details(identifier="Recent Forked User Bio: ")
         # print(data)
@@ -183,7 +183,7 @@ class BROWSER_HELPER:
 
         # print(drop_down.text)
         return drop_down.text
-        
+
     """
     does page has certain elements
     """
