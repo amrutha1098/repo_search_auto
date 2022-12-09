@@ -1,36 +1,27 @@
-import unittest
-import os
-import sys
-
-scriptPath = os.path.realpath(os.path.dirname(sys.argv[0]))
-os.chdir(scriptPath)
-os.chdir('../../')
-sys.path.insert(0, os.path.abspath(os.curdir))
-
 from scripts.common_util.constants import *
 
 
-# class SimplisticTest(unittest.TestCase):
+class SimplisticTest(unittest.TestCase):
 
-#     def test(self):
-#         # obj = API_OPERATIONS()
-#         # expected_data = obj.get_repo_details()
+    def test(self):
+        # obj = API_OPERATIONS()
+        # expected_data = obj.get_repo_details()
 
-#         ui_obj = BROWSER_HELPER()
-#         ui_obj.invoker_browser()
-#         ui_obj.get_url("http://localhost:3000/")
-#         # ui_obj.fetch_initial_text()
-#         ui_obj.search_text("test")
-#         ui_obj.select_drop_down(25)
-#         ui_obj.select_next_prev_button("next")
-#         ui_obj.select_next_prev_button("previous")
-#         ui_obj.select_get_details(9)
-#         ui_obj.select_close_tab()
-#         ui_obj.fetch_rows_data_from_table(7)
-#         ui_obj.fetch_table_headers()
-#         ui_obj.fetch_number_page_details()
-#         ui_obj.fetch_commit_fork_details(1)
-#         ui_obj.fetch_drop_down_details()
+        ui_obj = BROWSER_HELPER()
+        ui_obj.invoker_browser()
+        ui_obj.get_url("http://localhost:3000/")
+        # ui_obj.fetch_initial_text()
+        ui_obj.search_text("test")
+        ui_obj.select_drop_down(25)
+        ui_obj.select_next_prev_button("next")
+        ui_obj.select_next_prev_button("previous")
+        ui_obj.select_get_details(9)
+        ui_obj.select_close_tab()
+        ui_obj.fetch_rows_data_from_table(7)
+        ui_obj.fetch_table_headers()
+        ui_obj.fetch_number_page_details()
+        ui_obj.fetch_commit_fork_details(1)
+        ui_obj.fetch_drop_down_details()
 
 # # simple case to verify the ui operations 
 # class repo_search_smokeTest(unittest.TestCase):
@@ -38,7 +29,7 @@ from scripts.common_util.constants import *
 #         pass
 
 # 1 : check the initial fresh page ( nodata found, search is empty, rowpage is 10 , page cout is 0)
-class test_initial_login_page(unittest.TestCase):
+class test_initial_launch_page(unittest.TestCase):
     def test(self):
         obj = UI_HELPER()
         obj.search_text = ''
@@ -111,5 +102,3 @@ class test_next_prev_button(unittest.TestCase):
 # 10 : scroll down and select 10th repo details 
 # 11 : verify the tool tip
 
-if __name__ == '__main__':
-    unittest.main()
