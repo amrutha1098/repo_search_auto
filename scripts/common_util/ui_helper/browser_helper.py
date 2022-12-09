@@ -37,6 +37,9 @@ class BROWSER_HELPER:
         # replace with wait for page to load ..
 
     def select_drop_down(self, value):
+        if value == 10:
+            self.select_drop_down(25)
+
         drop_down_xpath = "//*[text()='" + str(
             "Rows per page:") + "']" + "/following::*[contains(@class, 'MuiTablePagination-select MuiSelect-select MuiSelect-standard MuiInputBase-input css-194a1fa-MuiSelect-select-MuiInputBase-input')]"
         drop_down = self.driver.find_element(By.XPATH, value=drop_down_xpath)
@@ -44,7 +47,6 @@ class BROWSER_HELPER:
 
         time.sleep(5)
         # replace with wait for page to load ..
-
         drop_down_value_xpath = "//li[contains(@class, 'MuiMenuItem-root MuiMenuItem-gutters MuiButtonBase-root MuiTablePagination-menuItem css-qcv4r-MuiButtonBase-root-MuiMenuItem-root-MuiTablePagination-menuItem')" + " and text()='" + str(
             value) + "']"
         drop_down = self.driver.find_element(By.XPATH, value=drop_down_value_xpath)
@@ -128,7 +130,7 @@ class BROWSER_HELPER:
         # print(element.text)
         return element.text
 
-    def fetch_name_from_table(self, table_index=0):
+    def fetch_rows_data_from_table(self, table_index=0):
         table_data = []
 
         table_path = "//td[contains(@class, 'MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft MuiTableCell-sizeMedium css-xrc9mx-MuiTableCell-root')]"
@@ -145,7 +147,7 @@ class BROWSER_HELPER:
                 # data['extra'] = table[cell+4].text
             cell += 5
             table_data.append(data)
-        print(table_data)
+        # print(table_data)
         return table_data
 
     def fetch_number_page_details(self):
@@ -163,14 +165,13 @@ class BROWSER_HELPER:
         return details.text
 
     def fetch_commit_fork_details(self, value):
-
+        print(value)
         self.select_get_details(value)
 
         data = {}
         data["commit_details"] = self.fetch_repo_details(identifier="Last 3 committers: ")
         data["fork_details"] = self.fetch_repo_details(identifier="Recent Forked User: ")
         data["fork_bio_details"] = self.fetch_repo_details(identifier="Recent Forked User Bio: ")
-        # print(data)
 
         self.select_accept_tab()
 
@@ -183,6 +184,12 @@ class BROWSER_HELPER:
 
         # print(drop_down.text)
         return drop_down.text
+
+    def fetch_search_text_details(self):
+        search_text = self.driver.find_element('xpath', '//input[contains(@placeholder, "Search")]')
+
+        # print(drop_down.text)
+        return search_text.text
 
     """
     does page has certain elements
