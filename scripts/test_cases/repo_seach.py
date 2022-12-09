@@ -1,3 +1,5 @@
+import unittest
+
 from scripts.common_util.constants import *
 
 
@@ -23,7 +25,8 @@ class SimplisticTest(unittest.TestCase):
         ui_obj.fetch_commit_fork_details(1)
         ui_obj.fetch_drop_down_details()
 
-# # simple case to verify the ui operations 
+
+# # simple case to verify the ui operations
 # class repo_search_smokeTest(unittest.TestCase):
 #     def repo_search_smokeTest(self):
 #         pass
@@ -96,9 +99,33 @@ class test_next_prev_button(unittest.TestCase):
                 obj.verify_next_prev_button()
 
 
-# 7 : senario based i.e initial 10 rows refresh there shd be 10 rows
-# 8 : senario based i.e initial 10 , select 25 , search for test , the number of rows shd be 25 
-# 9 : false negative case making sure the framework is working 
-# 10 : scroll down and select 10th repo details 
-# 11 : verify the tool tip
+# 7 : scenario based i.e initial 10 rows refresh there shd be 10 rows
+class test_drop_down_after_refresh(unittest.TestCase):
+    def test(self):
+        obj = UI_HELPER()
+        obj.searchtext = 'testing1234'
+        obj.drop_down_value = 10
+        obj.verify_drop_down_after_refresh()
 
+
+# 8 : scenario based i.e initial 10 , select 25 > search for test , the number of rows shd be 25
+class test_search_after_drop_down(unittest.TestCase):
+    def test(self):
+        obj = UI_HELPER()
+        obj.searchtext = 'testing'
+        obj.drop_down_value = 25
+        obj.verify_search_after_drop_down()
+
+# 9 : false negative case making sure the framework is working
+# 10 : scroll down and select 10th repo details
+class test_whole_table_repo_details_data(unittest.TestCase):
+    def test(self):
+        for value in ['test']:
+            with self.subTest(i=value):
+                obj = UI_HELPER()
+                obj.searchtext = value
+                obj.drop_down_value = 10
+                obj.compute_repo_details_api_json = True
+                obj.verify_whole_table_repo_details_data()
+
+# 11 : verify the tool tip

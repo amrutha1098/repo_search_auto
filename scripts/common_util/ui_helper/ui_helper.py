@@ -103,7 +103,7 @@ class UI_HELPER(API_OPERATIONS, BROWSER_HELPER):
         actual_data = self.form_json()[index]
         expected_data = self.fetch_commit_fork_details(index)
 
-        print(actual_data, expected_data)
+        print(expected_data,actual_data)
         assert expected_data == actual_data, "the row repo details is not as expected"
 
     def verify_next_prev_button(self):
@@ -112,18 +112,66 @@ class UI_HELPER(API_OPERATIONS, BROWSER_HELPER):
         self.select_drop_down(self.drop_down_value)
         self.search_text(self.searchtext)
 
-        # toatl_row_data = self.get_repo_details(self.searchtext)["total_count"]
-        toatl_row_data = 196
+        toatl_row_data = self.get_repo_details(self.searchtext)["total_count"]
 
         i = 0
         while i < toatl_row_data:
             page_num_detail = self.fetch_number_page_details().split(" ")[0]
             if i + 50 > toatl_row_data:
-                actual_data = str(i + 1) + '–' + str(toatl_row_data)
+                expected_data = str(i + 1) + '–' + str(toatl_row_data)
             else:
-                actual_data = str(i + 1) + '–' + str(i + self.drop_down_value)
+                expected_data = str(i + 1) + '–' + str(i + self.drop_down_value)
                 self.select_next_prev_button('next')
-            print(actual_data, page_num_detail)
-            assert actual_data == page_num_detail, "the page num does not match with actual value"
+            print(expected_data, page_num_detail)
+            assert expected_data == page_num_detail, "the page num does not match with actual value"
 
             i += self.drop_down_value
+
+    def verify_drop_down_after_refresh(self, initial_drop_down=None):
+        if initial_drop_down == None:
+            initial_drop_down = self.drop_down_value
+        self.login()
+        expected_data = str(initial_drop_down)
+        time.sleep(5)
+        # replace with wait for page to load ..
+        self.refresh_browser()
+
+        actual_data = self.fetch_drop_down_details()
+        assert expected_data == actual_data, "Drop down value is not configured as expected"
+
+    def verify_search_after_drop_down(self):
+        self.verify_drop_down_after_refresh(10)
+
+        self.select_drop_down(self.drop_down_value)
+        self.search_text(self.searchtext)
+
+        expected_data = str(self.drop_down_value)
+        actual_data = self.fetch_drop_down_details()
+        assert expected_data == actual_data, "Drop down value is not configured as expected"
+
+        #  also check if 10 rows are there in ui
+        actual_row_data = len(self.fetch_rows_data_from_table())
+        assert expected_data == str(actual_row_data), "Number of rows are not present as expected in repo search"
+    def verify_whole_table_repo_details_data(self):
+        self.login()
+
+        self.search_text(self.searchtext)
+
+        index = 0  # checking for only first row
+        expected_json = self.form_json()
+
+        actual_json = []
+        for index in range(self.drop_down_value):
+            actual_data = self.fetch_commit_fork_details(index)
+            actual_json.append(actual_data)
+
+        print(expected_json, actual_json)
+        assert expected_json == actual_json, "the row repo details is not as expected"
+
+
+
+
+
+
+
+

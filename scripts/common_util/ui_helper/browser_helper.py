@@ -16,6 +16,9 @@ class BROWSER_HELPER:
     def get_url(self, url):
         self.driver.get(url)
 
+    def refresh_browser(self):
+        self.driver.refresh()
+
     """
     Code to set elements or select elements in ui
     """
