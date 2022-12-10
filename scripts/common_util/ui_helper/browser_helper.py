@@ -24,8 +24,17 @@ class BROWSER_HELPER:
                                            desired_capabilities=capabilities)
         except Exception as err:
             logger.error("Error : " + str(err))
-            logger.error("Launching the Chrome browser")
-            assert False,("Launching the Chrome browser")
+            logger.error("Launching the Chrome browser failed")
+            assert False,("Launching the Chrome browser failed")
+
+    def close_browser(self):
+        try:
+            logger.info("Closing the Chrome browser")
+            self.driver.close()
+        except Exception as err:
+            logger.error("Error : " + str(err))
+            logger.error("Closing the Chrome browser failed")
+            assert False, ("Closing the Chrome browser failed")
 
     def get_url(self, url):
         try:
@@ -56,6 +65,7 @@ class BROWSER_HELPER:
                     time.sleep(5)
                     wait_time += 5
                     pass
+                time.sleep(5)
                 return True
             assert False, "Could not the load the page after 3 minutes"
         except Exception as err:
@@ -89,23 +99,23 @@ class BROWSER_HELPER:
     def select_drop_down(self, value):
         try:
             logger.info("Selecting the drop down : " + str(value))
+            self.wait_for_load_complete()
             if value == 10:
                 self.select_drop_down(25)
 
             drop_down_xpath = "//*[text()='" + str(
                 "Rows per page:") + "']" + "/following::*[contains(@class, 'MuiTablePagination-select MuiSelect-select MuiSelect-standard MuiInputBase-input css-194a1fa-MuiSelect-select-MuiInputBase-input')]"
+            logger.info(drop_down_xpath)
             drop_down = self.driver.find_element(By.XPATH, value=drop_down_xpath)
             drop_down.click()
 
-            time.sleep(5)
-            # replace with wait for page to load ..
+            self.wait_for_load_complete()
             drop_down_value_xpath = "//li[contains(@class, 'MuiMenuItem-root MuiMenuItem-gutters MuiButtonBase-root MuiTablePagination-menuItem css-qcv4r-MuiButtonBase-root-MuiMenuItem-root-MuiTablePagination-menuItem')" + " and text()='" + str(
                 value) + "']"
             drop_down = self.driver.find_element(By.XPATH, value=drop_down_value_xpath)
             drop_down.click()
 
-            time.sleep(5)
-            # replace with wait for page to load ..
+            self.wait_for_load_complete()
         except Exception as err:
             logger.error("Error : " + str(err))
             logger.error("Selecting the drop down : failed " + str(value))
@@ -312,9 +322,19 @@ class BROWSER_HELPER:
             return search_text.text
         except Exception as err:
             logger.error("Error : " + str(err))
-            logger.error("Failed tp fetch the the string in the search box")
-            assert False,("Failed tp fetch the the string in the search box")
+            logger.error("Failed to fetch the the string in the search box")
+            assert False,("Failed to fetch the the string in the search box")
 
+    def fetch_tooltip_detail(self):
+        try:
+            logger.info("Fetch the tootip detail")
+            tool_tip = WebDriverWait(self.driver, 10).until(expected_conditions.visibility_of_element_located((By.XPATH, "//span[contains(@class, 'MuiButtonBase-root MuiIconButton-root MuiIconButton-colorPrimary MuiIconButton-sizeMedium css-1ek9g0z-MuiButtonBase-root-MuiIconButton-root')]")))
+            hov = ActionChains(self.driver).move_to_element(tool_tip)
+            return True
+        except Exception as err:
+            logger.error("Error : " + str(err))
+            logger.error("Failed to fetch the tootip detail")
+            assert False,("Failed to fetch the tootip detail")
     """
     does page has certain elements
     """

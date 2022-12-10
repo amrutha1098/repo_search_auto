@@ -100,7 +100,7 @@ class API_OPERATIONS:
                     data['fork_details'] = fork_data[0]['owner']['login']
 
                     fork_bio_data = self.get_github_bio_details(data['fork_details'])
-                    data['fork_bio_details'] = fork_bio_data['bio']
+                    data['fork_bio_details'] = fork_bio_data['bio'].strip()
                     if data['fork_bio_details'] == None:
                         data['fork_bio_details'] = ''
                 else:
