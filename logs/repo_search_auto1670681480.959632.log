@@ -1,0 +1,45 @@
+2022-12-10 19:41:21,012 - ui_helper.py - hello logger here 
+2022-12-10 19:41:21,024 - service.py - Started executable: `input/chromedriver.exe` in a child process with pid: 38229
+2022-12-10 19:41:21,526 - remote_connection.py - POST http://localhost:45239/session {"capabilities": {"firstMatch": [{}], "alwaysMatch": {"browserName": "chrome", "pageLoadStrategy": "normal", "goog:chromeOptions": {"extensions": [], "args": ["--start-maximized", "--disable-gpu", "--disable-extensions", "--disable-software-rasterizer", "--ignore-certificate-errors", "\u2013-disable-dev-shm-usage", "window-size=1920x1080"]}}}}
+2022-12-10 19:41:21,527 - connectionpool.py - Starting new HTTP connection (1): localhost:45239
+2022-12-10 19:41:23,303 - connectionpool.py - http://localhost:45239 "POST /session HTTP/1.1" 200 753
+2022-12-10 19:41:23,304 - remote_connection.py - Remote response: status=200 | data={"value":{"capabilities":{"acceptInsecureCerts":false,"browserName":"chrome","browserVersion":"108.0.5359.94","chrome":{"chromedriverVersion":"108.0.5359.71 (1e0e3868ee06e91ad636a874420e3ca3ae3756ac-refs/branch-heads/5359@{#1016})","userDataDir":"/tmp/.com.google.Chrome.kZ3iYS"},"goog:chromeOptions":{"debuggerAddress":"localhost:39257"},"networkConnectionEnabled":false,"pageLoadStrategy":"normal","platformName":"linux","proxy":{},"setWindowRect":true,"strictFileInteractability":false,"timeouts":{"implicit":0,"pageLoad":300000,"script":30000},"unhandledPromptBehavior":"dismiss and notify","webauthn:extension:credBlob":true,"webauthn:extension:largeBlob":true,"webauthn:virtualAuthenticators":true},"sessionId":"4e7d1481240eeb141893cbedf0d64784"}} | headers=HTTPHeaderDict({'Content-Length': '753', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2022-12-10 19:41:23,305 - remote_connection.py - Finished Request
+2022-12-10 19:41:23,305 - remote_connection.py - POST http://localhost:45239/session/4e7d1481240eeb141893cbedf0d64784/url {"url": "http://localhost:3000/"}
+2022-12-10 19:41:24,854 - connectionpool.py - http://localhost:45239 "POST /session/4e7d1481240eeb141893cbedf0d64784/url HTTP/1.1" 200 14
+2022-12-10 19:41:24,860 - remote_connection.py - Remote response: status=200 | data={"value":null} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2022-12-10 19:41:24,862 - remote_connection.py - Finished Request
+2022-12-10 19:41:24,863 - remote_connection.py - POST http://localhost:45239/session/4e7d1481240eeb141893cbedf0d64784/element {"using": "xpath", "value": "//input[contains(@placeholder, \"Search\")]"}
+2022-12-10 19:41:24,931 - connectionpool.py - http://localhost:45239 "POST /session/4e7d1481240eeb141893cbedf0d64784/element HTTP/1.1" 200 88
+2022-12-10 19:41:24,932 - remote_connection.py - Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"1303a423-44f7-4658-87c8-82435b750f06"}} | headers=HTTPHeaderDict({'Content-Length': '88', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2022-12-10 19:41:24,932 - remote_connection.py - Finished Request
+2022-12-10 19:41:24,932 - remote_connection.py - GET http://localhost:45239/session/4e7d1481240eeb141893cbedf0d64784/element/1303a423-44f7-4658-87c8-82435b750f06/text {"id": "1303a423-44f7-4658-87c8-82435b750f06"}
+2022-12-10 19:41:24,947 - connectionpool.py - http://localhost:45239 "GET /session/4e7d1481240eeb141893cbedf0d64784/element/1303a423-44f7-4658-87c8-82435b750f06/text HTTP/1.1" 200 12
+2022-12-10 19:41:24,947 - remote_connection.py - Remote response: status=200 | data={"value":""} | headers=HTTPHeaderDict({'Content-Length': '12', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2022-12-10 19:41:24,947 - remote_connection.py - Finished Request
+2022-12-10 19:41:24,948 - remote_connection.py - POST http://localhost:45239/session/4e7d1481240eeb141893cbedf0d64784/element {"using": "xpath", "value": "//div[contains(@class, 'MuiGrid-root MuiGrid-container css-1ry2eeo-MuiGrid-root')]"}
+2022-12-10 19:41:24,970 - connectionpool.py - http://localhost:45239 "POST /session/4e7d1481240eeb141893cbedf0d64784/element HTTP/1.1" 200 88
+2022-12-10 19:41:24,970 - remote_connection.py - Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"fc404dec-3203-42e3-a0fd-1a3d994e21a2"}} | headers=HTTPHeaderDict({'Content-Length': '88', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2022-12-10 19:41:24,970 - remote_connection.py - Finished Request
+2022-12-10 19:41:24,971 - remote_connection.py - GET http://localhost:45239/session/4e7d1481240eeb141893cbedf0d64784/element/fc404dec-3203-42e3-a0fd-1a3d994e21a2/text {"id": "fc404dec-3203-42e3-a0fd-1a3d994e21a2"}
+2022-12-10 19:41:25,001 - connectionpool.py - http://localhost:45239 "GET /session/4e7d1481240eeb141893cbedf0d64784/element/fc404dec-3203-42e3-a0fd-1a3d994e21a2/text HTTP/1.1" 200 25
+2022-12-10 19:41:25,002 - remote_connection.py - Remote response: status=200 | data={"value":"No Data Found"} | headers=HTTPHeaderDict({'Content-Length': '25', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2022-12-10 19:41:25,003 - remote_connection.py - Finished Request
+2022-12-10 19:41:25,003 - remote_connection.py - POST http://localhost:45239/session/4e7d1481240eeb141893cbedf0d64784/element {"using": "xpath", "value": "//*[text()='Rows per page:']/following::*[contains(@class, 'MuiTablePagination-select MuiSelect-select MuiSelect-standard MuiInputBase-input css-194a1fa-MuiSelect-select-MuiInputBase-input')]"}
+2022-12-10 19:41:25,028 - connectionpool.py - http://localhost:45239 "POST /session/4e7d1481240eeb141893cbedf0d64784/element HTTP/1.1" 200 88
+2022-12-10 19:41:25,029 - remote_connection.py - Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"30c092fb-bf77-4924-b1e5-29eab18a272a"}} | headers=HTTPHeaderDict({'Content-Length': '88', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2022-12-10 19:41:25,029 - remote_connection.py - Finished Request
+2022-12-10 19:41:25,029 - remote_connection.py - GET http://localhost:45239/session/4e7d1481240eeb141893cbedf0d64784/element/30c092fb-bf77-4924-b1e5-29eab18a272a/text {"id": "30c092fb-bf77-4924-b1e5-29eab18a272a"}
+2022-12-10 19:41:25,048 - connectionpool.py - http://localhost:45239 "GET /session/4e7d1481240eeb141893cbedf0d64784/element/30c092fb-bf77-4924-b1e5-29eab18a272a/text HTTP/1.1" 200 14
+2022-12-10 19:41:25,048 - remote_connection.py - Remote response: status=200 | data={"value":"10"} | headers=HTTPHeaderDict({'Content-Length': '14', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2022-12-10 19:41:25,048 - remote_connection.py - Finished Request
+2022-12-10 19:41:25,048 - remote_connection.py - POST http://localhost:45239/session/4e7d1481240eeb141893cbedf0d64784/element {"using": "xpath", "value": "//p[contains(@class, 'MuiTablePagination-displayedRows css-11ceysh-MuiTablePagination-displayedRows')]"}
+2022-12-10 19:41:25,076 - connectionpool.py - http://localhost:45239 "POST /session/4e7d1481240eeb141893cbedf0d64784/element HTTP/1.1" 200 88
+2022-12-10 19:41:25,078 - remote_connection.py - Remote response: status=200 | data={"value":{"element-6066-11e4-a52e-4f735466cecf":"deab541e-6e96-45ee-b4f4-9fb2b8f3fb5c"}} | headers=HTTPHeaderDict({'Content-Length': '88', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2022-12-10 19:41:25,078 - remote_connection.py - Finished Request
+2022-12-10 19:41:25,078 - remote_connection.py - GET http://localhost:45239/session/4e7d1481240eeb141893cbedf0d64784/element/deab541e-6e96-45ee-b4f4-9fb2b8f3fb5c/text {"id": "deab541e-6e96-45ee-b4f4-9fb2b8f3fb5c"}
+2022-12-10 19:41:25,106 - connectionpool.py - http://localhost:45239 "GET /session/4e7d1481240eeb141893cbedf0d64784/element/deab541e-6e96-45ee-b4f4-9fb2b8f3fb5c/text HTTP/1.1" 200 22
+2022-12-10 19:41:25,108 - remote_connection.py - Remote response: status=200 | data={"value":"0–0 of 0"} | headers=HTTPHeaderDict({'Content-Length': '22', 'Content-Type': 'application/json; charset=utf-8', 'cache-control': 'no-cache'})
+2022-12-10 19:41:25,108 - remote_connection.py - Finished Request
+2022-12-10 19:41:25,108 - ui_helper.py - Expected data : {'search_text': '', 'page_data': 'No Data Found', 'drop_down_value': '10', 'page_split': '0–0 of 0'}
+2022-12-10 19:41:25,108 - ui_helper.py - Actual data : {'search_text': '', 'page_data': 'No Data Found', 'drop_down_value': '10', 'page_split': '0–0 of 0'}

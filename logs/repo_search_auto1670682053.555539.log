@@ -1,0 +1,5 @@
+2022-12-10 19:50:53,740 - ui_helper.py - hello logger here 
+2022-12-10 19:50:53,740 - browser_helper.py - Launching the Chrome browser
+2022-12-10 19:50:56,979 - browser_helper.py - Requesting for url : http://localhost:3000/
+2022-12-10 19:50:59,319 - ui_helper.py - Expected data : {'search_text': '', 'page_data': 'No Data Found', 'drop_down_value': '10', 'page_split': '0–0 of 0'}
+2022-12-10 19:50:59,351 - ui_helper.py - Actual data : {'search_text': '', 'page_data': 'No Data Found', 'drop_down_value': '10', 'page_split': '0–0 of 0'}
