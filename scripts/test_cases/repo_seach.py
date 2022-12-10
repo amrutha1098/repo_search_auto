@@ -1,8 +1,17 @@
-import unittest
-
 from scripts.common_util.constants import *
-
-
+# import functools
+# def decorate(method):
+#     @functools.wraps(method)
+#     def wrapper(self):
+#         logger.info('\n')
+#         logger.info("*****************************************************************************")
+#         logger.info("Starting the test case " + str(method.__qualname__) )
+#         result = method(self)
+#         logger.info("Finished the test case " + str(method.__qualname__))
+#         logger.info("*****************************************************************************")
+#         logger.info("\n")
+#         return result
+#     return wrapper
 class SimplisticTest(unittest.TestCase):
 
     def test(self):
@@ -33,6 +42,7 @@ class SimplisticTest(unittest.TestCase):
 
 # 1 : check the initial fresh page ( nodata found, search is empty, rowpage is 10 , page cout is 0)
 class test_initial_launch_page(unittest.TestCase):
+    # 
     def test(self):
         obj = UI_HELPER()
         obj.search_text = ''
@@ -47,7 +57,7 @@ class test_initial_launch_page(unittest.TestCase):
 class test_drop_down_values(unittest.TestCase):
     def test(self):
         for value in [10, 25, 50]:
-            with self.subTest(i=value):
+            with self.subTest(i=value,msg="getAll"):
                 obj = UI_HELPER()
                 obj.drop_down_value = value
                 obj.verify_drop_down_repo_search()
@@ -55,9 +65,10 @@ class test_drop_down_values(unittest.TestCase):
 
 # # 3 : check for the total number of data for selected query [0,1, > 2k]
 class test_toatl_query_data(unittest.TestCase):
+    
     def test(self):
         for value in ["testNanHere", "flyoverthings", "testingrepo", ]:
-            with self.subTest(i=value):
+            with self.subTest(i=value,msg="getAll"):
                 obj = UI_HELPER()
                 obj.searchtext = value
                 obj.verify_total_query_data()
@@ -67,7 +78,7 @@ class test_toatl_query_data(unittest.TestCase):
 class test_row_data(unittest.TestCase):
     def test(self):
         for value in ["testNanHere", "flyoverthings", "testingrepo", ]:
-            with self.subTest(i=value):
+            with self.subTest(i=value,msg="getAll"):
                 obj = UI_HELPER()
                 obj.searchtext = value
                 obj.drop_down_value = 10
@@ -77,9 +88,10 @@ class test_row_data(unittest.TestCase):
 
 # 5 : verify the repo details i.e ( last 3 commits, fork, fork bio)
 class test_repo_details_data(unittest.TestCase):
+    # 
     def test(self):
-        for value in ["flyoverthings", 'test']:
-            with self.subTest(i=value):
+        for value in ['test']:
+            with self.subTest(i=value,msg="getAll"):
                 obj = UI_HELPER()
                 obj.searchtext = value
                 obj.drop_down_value = 10
@@ -91,7 +103,7 @@ class test_repo_details_data(unittest.TestCase):
 class test_next_prev_button(unittest.TestCase):
     def test(self):
         for value in [10, 25, 50]:
-            with self.subTest(i=value):
+            with self.subTest(i=value,msg="getAll"):
                 obj = UI_HELPER()
                 obj.searchtext = 'testing1234'
                 obj.drop_down_value = value
@@ -121,7 +133,7 @@ class test_search_after_drop_down(unittest.TestCase):
 class test_whole_table_repo_details_data(unittest.TestCase):
     def test(self):
         for value in ['test']:
-            with self.subTest(i=value):
+            with self.subTest(i=value,msg="getAll"):
                 obj = UI_HELPER()
                 obj.searchtext = value
                 obj.drop_down_value = 10
