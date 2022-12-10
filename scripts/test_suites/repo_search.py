@@ -12,15 +12,15 @@ def run_some_tests():
     # Run only the tests in the specified classes
 
     test_classes_to_run = [
-        # SimplisticTest,
-        # test_initial_launch_page,
-        # test_drop_down_values,
-        # test_toatl_query_data,
-        # test_row_data,
-        # test_repo_details_data,
-        # test_next_prev_button,
-        # test_drop_down_after_refresh,
-        # test_search_after_drop_down,
+        SimplisticTest,
+        test_initial_launch_page,
+        test_drop_down_values,
+        test_toatl_query_data,
+        test_row_data,
+        test_repo_details_data,
+        test_next_prev_button,
+        test_drop_down_after_refresh,
+        test_search_after_drop_down,
         test_whole_table_repo_details_data,
     ]
 
@@ -32,12 +32,20 @@ def run_some_tests():
         suites_list.append(suite)
 
     big_suite = unittest.TestSuite(suites_list)
+    return big_suite
 
-    runner = unittest.TextTestRunner()
-    results = runner.run(big_suite)
-    print(results)
     # ...
 
 
 if __name__ == '__main__':
-    run_some_tests()
+    import HtmlTestRunner
+
+    runner = HtmlTestRunner.HTMLTestRunner(
+        # resultclass=NumbersTestResult,
+        combine_reports=True,
+        report_name="MyReport",
+        add_timestamp=False
+    )
+    big_suite = run_some_tests()
+    results = runner.run(big_suite)
+    print(results)
