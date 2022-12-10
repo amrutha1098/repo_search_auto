@@ -8,33 +8,42 @@ class UI_HELPER(API_OPERATIONS, BROWSER_HELPER):
         pass
 
     def form_json(self):
-        json_data = {
+        try:
+            json_data = {
 
-        }
+            }
 
-        if hasattr(self, 'search_text'):
-            json_data["search_text"] = self.search_text
+            if hasattr(self, 'search_text'):
+                json_data["search_text"] = self.search_text
 
-        if hasattr(self, 'page_data'):
-            json_data["page_data"] = self.page_data
+            if hasattr(self, 'page_data'):
+                json_data["page_data"] = self.page_data
 
-        if hasattr(self, 'drop_down_value'):
-            json_data["drop_down_value"] = str(self.drop_down_value)
+            if hasattr(self, 'drop_down_value'):
+                json_data["drop_down_value"] = str(self.drop_down_value)
 
-        if hasattr(self, 'page_split'):
-            json_data["page_split"] = self.page_split
+            if hasattr(self, 'page_split'):
+                json_data["page_split"] = self.page_split
 
-        if hasattr(self, 'compute_repo_api_json'):
-            json_data = self.get_configured_api_details(self.searchtext, self.drop_down_value)
+            if hasattr(self, 'compute_repo_api_json'):
+                json_data = self.get_configured_api_details(self.searchtext, self.drop_down_value)
 
-        if hasattr(self, 'compute_repo_details_api_json'):
-            json_data = self.get_configured_repo_api_details(self.searchtext, self.drop_down_value, 1)
+            if hasattr(self, 'compute_repo_details_api_json'):
+                json_data = self.get_configured_repo_api_details(self.searchtext, self.drop_down_value, 1)
 
-        return json_data
+            return json_data
+        except Exception as err:
+            logger.error("Error : " + str(err))
+            logger.error("Formatting the api json failed")
 
     def login(self):
-        self.invoker_browser()
-        self.get_url("http://localhost:3000/")
+        try :
+            logger.info("hello checking the logger here ")
+            self.invoker_browser()
+            self.get_url("http://localhost:3000/")
+        except Exception as err:
+            logger.error("Error : " + str(err))
+            logger.error("Launching the browser failed")
 
     def fetch_initial_value(self):
         json_data = {}
@@ -53,8 +62,9 @@ class UI_HELPER(API_OPERATIONS, BROWSER_HELPER):
         expected_data = self.form_json()
         actual_data = self.fetch_initial_value()
 
-        print(expected_data, actual_data)
-        assert expected_data == actual_data, "Initail page value is not same as expected"
+        logger.info("Expected data : " + str(expected_data))
+        logger.info("Actual data : " + str(actual_data))
+        assert expected_data == actual_data, "Initial page value is not same as expected"
 
     def verify_drop_down_repo_search(self):
 
@@ -64,12 +74,16 @@ class UI_HELPER(API_OPERATIONS, BROWSER_HELPER):
 
         expected_data = self.form_json()["drop_down_value"]
         self.select_drop_down(self.drop_down_value)
-
+        
         actual_data = self.fetch_drop_down_details()
+        logger.info("Expected data : " + str(expected_data))
+        logger.info("Actual data : " + str(actual_data))
         assert expected_data == actual_data, "Drop down value is not configured as expected"
 
         #  also check if 10 rows are there in ui
         actual_row_data = len(self.fetch_rows_data_from_table())
+        logger.info("Expected data : " + str(expected_data))
+        logger.info("Actual data : " + str(actual_row_data))
         assert expected_data == str(actual_row_data), "Number of rows are not present as expected in repo search"
 
     def verify_total_query_data(self):
@@ -80,7 +94,8 @@ class UI_HELPER(API_OPERATIONS, BROWSER_HELPER):
 
         expected_data = self.get_repo_details(self.searchtext)["total_count"]
         actual_data = int(self.fetch_number_page_details().split(" ")[2])
-        print(expected_data, actual_data)
+        logger.info("Expected data : " + str(expected_data))
+        logger.info("Actual data : " + str(actual_data))
         assert expected_data == actual_data, "the total number of enteries is not as expected count"
 
     def verify_row_data(self):
@@ -88,10 +103,11 @@ class UI_HELPER(API_OPERATIONS, BROWSER_HELPER):
 
         self.search_text(self.searchtext)
 
-        actual_data = self.form_json()
-        expected_data = self.fetch_rows_data_from_table()
+        expected_data = self.form_json()
+        actual_data = self.fetch_rows_data_from_table()
 
-        print(expected_data, actual_data)
+        logger.info("Expected data : " + str(expected_data))
+        logger.info("Actual data : " + str(actual_data))
         assert expected_data == actual_data, "the row data is not as expected"
 
     def verify_repo_details_data(self):
@@ -100,10 +116,11 @@ class UI_HELPER(API_OPERATIONS, BROWSER_HELPER):
         self.search_text(self.searchtext)
 
         index = 0  # checking for only first row
-        actual_data = self.form_json()[index]
-        expected_data = self.fetch_commit_fork_details(index)
+        expected_data = self.form_json()[index]
+        actual_data = self.fetch_commit_fork_details(index)
 
-        print(expected_data,actual_data)
+        logger.info("Expected data : " + str(expected_data))
+        logger.info("Actual data : " + str(actual_data))
         assert expected_data == actual_data, "the row repo details is not as expected"
 
     def verify_next_prev_button(self):
@@ -122,7 +139,8 @@ class UI_HELPER(API_OPERATIONS, BROWSER_HELPER):
             else:
                 expected_data = str(i + 1) + '–' + str(i + self.drop_down_value)
                 self.select_next_prev_button('next')
-            print(expected_data, page_num_detail)
+            logger.info("Expected data : " + str(expected_data))
+            logger.info("Actual data : " + str(page_num_detail))
             assert expected_data == page_num_detail, "the page num does not match with actual value"
 
             i += self.drop_down_value
@@ -137,6 +155,8 @@ class UI_HELPER(API_OPERATIONS, BROWSER_HELPER):
         self.refresh_browser()
 
         actual_data = self.fetch_drop_down_details()
+        logger.info("Expected data : " + str(expected_data))
+        logger.info("Actual data : " + str(actual_data))
         assert expected_data == actual_data, "Drop down value is not configured as expected"
 
     def verify_search_after_drop_down(self):
@@ -147,6 +167,8 @@ class UI_HELPER(API_OPERATIONS, BROWSER_HELPER):
 
         expected_data = str(self.drop_down_value)
         actual_data = self.fetch_drop_down_details()
+        logger.info("Expected data : " + str(expected_data))
+        logger.info("Actual data : " + str(actual_data))
         assert expected_data == actual_data, "Drop down value is not configured as expected"
 
         #  also check if 10 rows are there in ui
@@ -156,8 +178,6 @@ class UI_HELPER(API_OPERATIONS, BROWSER_HELPER):
         self.login()
 
         self.search_text(self.searchtext)
-
-        index = 0  # checking for only first row
         expected_json = self.form_json()
 
         actual_json = []
@@ -165,7 +185,8 @@ class UI_HELPER(API_OPERATIONS, BROWSER_HELPER):
             actual_data = self.fetch_commit_fork_details(index)
             actual_json.append(actual_data)
 
-        print(expected_json, actual_json)
+        logger.info("Expected data : " + str(expected_json))
+        logger.info("Actual data : " + str(actual_json))
         assert expected_json == actual_json, "the row repo details is not as expected"
 
 
