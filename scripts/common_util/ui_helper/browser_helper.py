@@ -25,6 +25,7 @@ class BROWSER_HELPER:
         except Exception as err:
             logger.error("Error : " + str(err))
             logger.error("Launching the Chrome browser")
+            assert False,("Launching the Chrome browser")
 
     def get_url(self, url):
         try:
@@ -40,15 +41,34 @@ class BROWSER_HELPER:
             self.driver.refresh()
         except Exception as err:
             logger.error("Error : " + str(err))
+            assert False,("Error : " + str(err))
 
+    def wait_for_load_complete(self):
+        try:
+            logger.info("Wait for the load to be completed")
+            wait_time = 0 # wait for 3 minutes
+            while wait_time < 180 :
+                xpath = "//div[contains(@data-testid , 'bars-loading')]"
+                try :
+                    self.driver.find_element(By.XPATH, xpath)
+                except :
+                    logger.info("Wait for page to load 5 second waiting ")
+                    time.sleep(5)
+                    wait_time += 5
+                    pass
+                return True
+            assert False, "Could not the load the page after 3 minutes"
+        except Exception as err:
+            logger.error("Error : " + str(err))
+            logger.error("The page could be loaded waited for " + str(wait_time)+ " minutes")
+            assert False,("The page could be loaded waited for " + str(wait_time)+ " minutes")
     """
     Code to set elements or select elements in ui
     """
 
     def search_text(self, name):
         try:
-            logger.info("Searching of the text in search box : " + str(name))
-            time.sleep(5)
+            self.wait_for_load_complete()
             button_xpath = "//button[contains (@class , 'MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-1dpd72z-MuiButtonBase-root-MuiIconButton-root')]"
             search_icon = self.driver.find_element(By.XPATH, value=button_xpath)
             search_icon.click()
@@ -60,11 +80,11 @@ class BROWSER_HELPER:
             search_text.send_keys(name)
             search_text.send_keys(Keys.ENTER)
 
-            time.sleep(5)
-            # replace with wait for page to load ..
+            self.wait_for_load_complete()
         except Exception as err:
             logger.error("Error : " + str(err))
             logger.error("Searching of the text in search box failed : " + str(name))
+            assert False,("Searching of the text in search box failed : " + str(name))
 
     def select_drop_down(self, value):
         try:
@@ -89,6 +109,7 @@ class BROWSER_HELPER:
         except Exception as err:
             logger.error("Error : " + str(err))
             logger.error("Selecting the drop down : failed " + str(value))
+            assert False,("Selecting the drop down : failed " + str(value))
 
     def select_next_prev_button(self, value):
         try:
@@ -103,11 +124,11 @@ class BROWSER_HELPER:
             button = self.driver.find_element(By.XPATH, value=button_xpath)
             button.click()
 
-            time.sleep(5)
-            # replace with wait for page to load ..
+            self.wait_for_load_complete()
         except Exception as err:
             logger.error("Error : " + str(err))
             logger.error("Selecting the " + str(value) + " button failed ")
+            assert False,("Selecting the " + str(value) + " button failed ")
 
     def select_get_details(self, table_index=0):
         try:
@@ -122,11 +143,11 @@ class BROWSER_HELPER:
             button = button_array[table_index]
             button.click()
 
-            time.sleep(5)
-            # replace with wait for page to load ..
+            self.wait_for_load_complete()
         except Exception as err:
             logger.error("Error : " + str(err))
             logger.error("Failed tp Clik on the tool tip to get the repo details " + str(table_index) + " th row")
+            assert False,("Failed tp Clik on the tool tip to get the repo details " + str(table_index) + " th row")
 
     def select_close_tab(self):
         try:
@@ -136,11 +157,11 @@ class BROWSER_HELPER:
             button = self.driver.find_element(By.XPATH, value=button_xpath)
             button.click()
 
-            time.sleep(5)
-            # replace with wait for page to load .. 
+            self.wait_for_load_complete()
         except Exception as err:
             logger.error("Error : " + str(err))
             logger.error("Failed closing the modal window")
+            assert False,("Failed closing the modal window")
 
     def select_accept_tab(self):
         try:
@@ -150,11 +171,11 @@ class BROWSER_HELPER:
             button = self.driver.find_element(By.XPATH, value=button_xpath)
             button.click()
 
-            time.sleep(5)
-            # replace with wait for page to load ..  
+            self.wait_for_load_complete()
         except Exception as err:
             logger.error("Error : " + str(err))
             logger.error("Failed to clic on the OK button in window")
+            assert False,("Failed to clic on the OK button in window")
 
     """
     Code to fetch values from ui
@@ -183,6 +204,7 @@ class BROWSER_HELPER:
         except Exception as err:
             logger.error("Error : " + str(err))
             logger.error("Failed to fetch the table headers or the column names of the table")
+            assert False,("Failed to fetch the table headers or the column names of the table")
 
     def fetch_initial_text(self):
         try:
@@ -194,6 +216,7 @@ class BROWSER_HELPER:
         except Exception as err:
             logger.error("Error : " + str(err))
             logger.error("Failed to fetch the data of the page , after the launch of the page")
+            assert False,("Failed to fetch the data of the page , after the launch of the page")
 
     def fetch_rows_data_from_table(self, table_index=0):
         try:
@@ -219,6 +242,7 @@ class BROWSER_HELPER:
         except Exception as err:
             logger.error("Error : " + str(err))
             logger.error("Failed to fetch the data of each row in the table")
+            assert False,("Failed to fetch the data of each row in the table")
 
     def fetch_number_page_details(self):
         try:
@@ -230,6 +254,7 @@ class BROWSER_HELPER:
         except Exception as err:
             logger.error("Error : " + str(err))
             logger.error("Fetch the page details written in footer")
+            assert False,("Fetch the page details written in footer")
 
     def fetch_repo_details(self, identifier):
         try:
@@ -243,6 +268,7 @@ class BROWSER_HELPER:
         except Exception as err:
             logger.error("Error : " + str(err))
             logger.error("Failed to fetch the repo details from the modal window of " + str(identifier))
+            assert False,("Failed to fetch the repo details from the modal window of " + str(identifier))
 
     def fetch_commit_fork_details(self, value):
         try:
@@ -261,6 +287,7 @@ class BROWSER_HELPER:
         except Exception as err:
             logger.error("Error : " + str(err))
             logger.error("Failed to fetch the repo details from the modal window of the row " + str(value))
+            assert False,("Failed to fetch the repo details from the modal window of the row " + str(value))
 
     def fetch_drop_down_details(self):
         try:
@@ -274,6 +301,7 @@ class BROWSER_HELPER:
         except Exception as err:
             logger.error("Error : " + str(err))
             logger.error("Failed to fetch the drop down value")
+            assert False,("Failed to fetch the drop down value")
 
     def fetch_search_text_details(self):
         try:
@@ -285,6 +313,7 @@ class BROWSER_HELPER:
         except Exception as err:
             logger.error("Error : " + str(err))
             logger.error("Failed tp fetch the the string in the search box")
+            assert False,("Failed tp fetch the the string in the search box")
 
     """
     does page has certain elements

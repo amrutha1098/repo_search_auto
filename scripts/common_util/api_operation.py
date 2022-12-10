@@ -22,6 +22,7 @@ class API_OPERATIONS:
         except Exception as err :
             logger.error("Error : " + str(err))
             logger.error("The request to url " + str(url) + " failed")
+            assert False,("The request to url " + str(url) + " failed")
 
     # example request URL: https://api.github.com/repos/storybookjs/storybook/commits?per_page=3&page=0
     # input params
@@ -41,6 +42,7 @@ class API_OPERATIONS:
         except Exception as err:
             logger.error("Error : " + str(err))
             logger.error("The request to url " + str(url) + " failed")
+            assert False,("The request to url " + str(url) + " failed")
 
     # example request URL: https://api.github.com/users/Rippyblogger
     # input params
@@ -54,6 +56,7 @@ class API_OPERATIONS:
         except Exception as err:
             logger.error("Error : " + str(err))
             logger.error("The request to url " + str(url) + " failed")
+            assert False,("The request to url " + str(url) + " failed")
 
     #  function to form the json to verify for ui
     def get_configured_api_details(self, keyword, limit):
@@ -73,6 +76,7 @@ class API_OPERATIONS:
         except Exception as err:
             logger.error("Error : " + str(err))
             logger.error("Formatting the api json failed")
+            assert False,("Formatting the api json failed")
     def get_configured_repo_api_details(self, keyword, per_page, limit):
         try :
             git_repo_data = self.get_repo_details(keyword)
@@ -108,3 +112,4 @@ class API_OPERATIONS:
         except Exception as err:
             logger.error("Error : " + str(err))
             logger.error("Formatting the api json failed")
+            assert False,("Formatting the api json failed")
