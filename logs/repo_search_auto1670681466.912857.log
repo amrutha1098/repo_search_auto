@@ -1,3 +1,0 @@
-2022-12-10 19:41:06,983 - ui_helper.py - hello logger here 
-2022-12-10 19:41:06,984 - ui_helper.py - Error : name 'chrome_options' is not defined
-2022-12-10 19:41:06,984 - ui_helper.py - Launching the browser failed
