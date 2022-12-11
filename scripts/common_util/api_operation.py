@@ -50,6 +50,7 @@ class API_OPERATIONS:
     def get_github_bio_details(self, name):
         try:
             url = self.request_url + 'users/' + str(name)
+            logger.info(url)
             response = requests.get(url)
             data = response.json()
             return data
@@ -89,27 +90,34 @@ class API_OPERATIONS:
 
                 data['commit_details'] = ''
                 for repo_data in commit_data:
-                    data['commit_details'] = data['commit_details'] + repo_data['committer']['login'] + ', '
+                    if repo_data['committer'] != None:
+                        data['commit_details'] = data['commit_details'] + repo_data['committer']['login'] + ', '
 
                 if data['commit_details'] != '':
                     data['commit_details'] = data['commit_details'][:-2]
 
-                fork_data = self.get_commits_details("forks", git_repo_data['items'][i]['owner']['login'],
-                                                     git_repo_data['items'][i]['name'])
-                if fork_data != []:
-                    data['fork_details'] = fork_data[0]['owner']['login']
+                    fork_data = self.get_commits_details("forks", git_repo_data['items'][i]['owner']['login'],
+                                                        git_repo_data['items'][i]['name'])
+                    if fork_data != []:
+                        data['fork_details'] = fork_data[0]['owner']['login']
 
-                    fork_bio_data = self.get_github_bio_details(data['fork_details'])
-                    data['fork_bio_details'] = fork_bio_data['bio'].strip()
-                    if data['fork_bio_details'] == None:
+                        fork_bio_data = self.get_github_bio_details(data['fork_details'])
+                        data['fork_bio_details'] = fork_bio_data['bio']
+                        if data['fork_bio_details'] == None:
+                            data['fork_bio_details'] = ''
+                        else:
+                            data['fork_bio_details'] = fork_bio_data['bio'].strip().replace('\n','').replace('\r','')
+                    else:
+                        data['fork_details'] = ''
                         data['fork_bio_details'] = ''
                 else:
                     data['fork_details'] = ''
                     data['fork_bio_details'] = ''
-
+                logger.info(data)
                 json_data.append(data)
             return json_data
         except Exception as err:
             logger.error("Error : " + str(err))
+            logger.error("json : " + str(json_data))
             logger.error("Formatting the api json failed")
             assert False,("Formatting the api json failed")

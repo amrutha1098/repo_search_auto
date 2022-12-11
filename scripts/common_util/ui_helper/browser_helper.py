@@ -4,6 +4,7 @@ from scripts.common_util.constants import *
 class BROWSER_HELPER:
 
     def __init__(self):
+        self.wait_due_api_rate_limit = 5
         pass
 
     def invoker_browser(self):
@@ -62,10 +63,10 @@ class BROWSER_HELPER:
                     self.driver.find_element(By.XPATH, xpath)
                 except :
                     logger.info("Wait for page to load 5 second waiting ")
-                    time.sleep(5)
+                    time.sleep(self.wait_due_api_rate_limit)
                     wait_time += 5
                     pass
-                time.sleep(5)
+                time.sleep(self.wait_due_api_rate_limit)
                 return True
             assert False, "Could not the load the page after 3 minutes"
         except Exception as err:
@@ -140,18 +141,28 @@ class BROWSER_HELPER:
             logger.error("Selecting the " + str(value) + " button failed ")
             assert False,("Selecting the " + str(value) + " button failed ")
 
-    def select_get_details(self, table_index=0):
+    def select_get_details(self, table_index=0, retry_count = 0):
         try:
+            self.wait_for_load_complete()
             logger.info("Cliking on the tool tip to get the repo details ")
             #  need to check for scroll like ( rows grtrr than 9 is not visible)
 
             button_xpath = "//span[contains(@class,'MuiButtonBase-root MuiIconButton-root MuiIconButton-colorPrimary MuiIconButton-sizeMedium css-1ek9g0z-MuiButtonBase-root-MuiIconButton-root')"
             button_xpath = button_xpath + "and contains(@tabindex, '0')]"
 
-            button_array = self.driver.find_elements(By.XPATH, value=button_xpath)
-            print(len(button_array))
-            button = button_array[table_index]
-            button.click()
+            try :
+                button_array = self.driver.find_elements(By.XPATH, value=button_xpath)
+                print(len(button_array))
+                button = button_array[table_index]
+                button.click()
+                retry_count += 3
+            except:
+                if retry_count > 2:
+                    assert False
+                else:
+                    time.sleep(self.wait_due_api_rate_limit)
+                    self.select_get_details(table_index, retry_count)
+
 
             self.wait_for_load_complete()
         except Exception as err:

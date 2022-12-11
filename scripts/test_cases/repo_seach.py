@@ -18,30 +18,10 @@ def decorate(method):
 class SimplisticTest(unittest.TestCase):
     @decorate
     def test(self):
-        # obj = API_OPERATIONS()
-        # expected_data = obj.get_repo_details()
+        obj = UI_HELPER()
+        obj.searchtext = 'flyoverthings'
+        obj.verify_total_query_data()
 
-        ui_obj = BROWSER_HELPER()
-        ui_obj.invoker_browser()
-        ui_obj.get_url("http://localhost:3000/")
-        # ui_obj.fetch_initial_text()
-        ui_obj.search_text("test")
-        ui_obj.select_drop_down(25)
-        ui_obj.select_next_prev_button("next")
-        ui_obj.select_next_prev_button("previous")
-        ui_obj.select_get_details(9)
-        ui_obj.select_close_tab()
-        ui_obj.fetch_rows_data_from_table(7)
-        ui_obj.fetch_table_headers()
-        ui_obj.fetch_number_page_details()
-        ui_obj.fetch_commit_fork_details(1)
-        ui_obj.fetch_drop_down_details()
-
-
-# # simple case to verify the ui operations
-# class repo_search_smokeTest(unittest.TestCase):
-#     def repo_search_smokeTest(self):
-#         pass
 
 # 1 : check the initial fresh page ( nodata found, search is empty, rowpage is 10 , page cout is 0)
 class test_initial_launch_page(unittest.TestCase):
@@ -144,7 +124,7 @@ class test_whole_table_repo_details_data(unittest.TestCase):
         for value in [10,]:# not including 50 and 25 due to rate limit ( 25 also might fail )
             with self.subTest(i=value,msg="getAll"):
                 obj = UI_HELPER()
-                obj.searchtext = value
+                obj.searchtext = 'google'
                 obj.drop_down_value = value
                 obj.compute_repo_details_api_json = True
                 obj.verify_whole_table_repo_details_data()
