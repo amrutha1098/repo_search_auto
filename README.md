@@ -7,9 +7,13 @@ Automated framework for repository Search [Github](https://github.com/kesavan-ra
 ```console
 
 pip install selenium
-pip install HTMLTestRunner-rv
+pip install html-testRunner
+pip install requests
 
-
+ **************** or ******************
+ 
+ pip install -r requirements.txt
+ 
 ```
 please follow following instruction to generate proper html report [link](https://stackoverflow.com/questions/71858651/attributeerror-htmltestresult-object-has-no-attribute-count-relevant-tb-lev)
 
